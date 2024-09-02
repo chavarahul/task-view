@@ -1,10 +1,17 @@
-import Image from "next/image";
-import DashboardHeader from "../components/dashboard-components/header";
+'use client'
+import Sidebar from "../components/sidebar";
+import MainComponent from "../components/dashboard-components/MainComponent";
+import { useState } from "react";
 
 export default function Home() {
-  return (
-    <main className="borders h-screen flex-bet">
+  const [active, setActive] = useState('dashboard');
 
+  return (
+    <main className="relative h-screen flex-bet">
+       <Sidebar active={active} setActive={setActive}/>
+       <section className="relative w-11/12 h-full px-5 py-6">
+          {active === 'dashboard' && <MainComponent />}
+       </section>
     </main>
   );
 }

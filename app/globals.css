@@ -73,6 +73,9 @@ img {
     justify-content: space-evenly;
   }
 
+  .cardColor{
+    background-color: #1b1c1e;
+  }
   .flex-center {
     display: flex;
     align-items: center;
