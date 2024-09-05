@@ -7,24 +7,32 @@ import { poppin } from "@/app/constants";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
 
-    const [formData,setformData] = useState({
-        email:'',
-        password:'',
+    const router = useRouter();
+
+    const [formData, setformData] = useState({
+        email: '',
+        password: '',
     })
 
     const handleLogin = async () => {
-        await signIn('credentials',{...formData,redirect:false}).then((call)=>{
-            if(call?.error) toast.error('Invalid credentials');
+        console.log(formData)
+        await signIn('credentials', { ...formData, redirect: false }).then((call) => {
+            if (call?.error) toast.error('Invalid credentials');
+            if (call?.ok) { 
+                toast.success('successfull');
+                router.push('/') 
+            }
         })
     }
 
-    const handleInputChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const name = e.target.name;
         const value = e.target.value;
-        // setformData({...d})
+        setformData((d)=>({...d,[name]:value}))
     }
     return (
         <div className="min-h-screen flex flex-col items-center justify-center ">
@@ -44,6 +52,8 @@ export default function LoginPage() {
                                 id="email"
                                 className={`w-full p-2 text-gray-900 mt-1 border border-gray-300 rounded ${poppin.className}`}
                                 placeholder="micahcarroll@gmail.com"
+                                value={formData.email}
+                                onChange={handleInputChange}
                             />
                         </div>
                         <div className="mb-4">
@@ -55,6 +65,8 @@ export default function LoginPage() {
                                 id="password"
                                 className={`w-full p-2 text-gray-900 mt-1 border border-gray-300 rounded  ${poppin.className}`}
                                 placeholder="Enter your password"
+                                value={formData.password}
+                                onChange={handleInputChange}
                             />
                         </div>
                         <div className={`mb-4`}>

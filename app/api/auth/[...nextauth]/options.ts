@@ -114,6 +114,7 @@ export const options: NextAuthOptions = {
                     token.adminToken = user.token; // Include the admin token if present
                 }
             }
+            console.log(token)
             return token;
         },
         async session({ session, token }: any) {
