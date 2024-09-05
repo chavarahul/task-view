@@ -7,6 +7,14 @@ import { nanoid } from 'nanoid';
 
 const prisma = new PrismaClient();
 
+const clientId = '496438207267-5sm1joa903t9k6ddgv5ulaigq8qvql46.apps.googleusercontent.com';
+const clientSecret = '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';
+
+// if (!clientId || !clientSecret) {
+//     throw new Error("Google client ID or client secret is not defined");
+// }
+
+
 export const options: NextAuthOptions = {
     session: {
         strategy: 'jwt',
